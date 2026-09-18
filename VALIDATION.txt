@@ -1,0 +1,4 @@
+Nadia's Perfume Cart V17 validation
+HTML pages: 29
+Missing static local links/assets: 0
+JavaScript syntax errors: 0
