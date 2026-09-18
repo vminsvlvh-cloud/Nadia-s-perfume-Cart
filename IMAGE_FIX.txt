@@ -1,0 +1,6 @@
+V19 image compatibility fix
+HTML pages: 29
+Static image references checked: 53
+Missing static image references: 0
+Dynamic ${p.slug} references resolve against the included 20 perfume files.
+Product images are included in assets/perfumes and mirrored at repository root.

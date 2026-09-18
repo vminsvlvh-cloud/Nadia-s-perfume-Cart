@@ -1,0 +1,5 @@
+V22 HOME ANNOUNCEMENT BAR
+At the top of index.html there is an editable What's New / الجديد الحصري bar.
+Tap the pencil icon to edit Arabic text, English text, and its link.
+Edits are stored in localStorage on the current device.
+For public updates visible to every visitor, edit the default values in index.html and redeploy, or later connect an admin backend/CMS.

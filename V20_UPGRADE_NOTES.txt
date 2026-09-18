@@ -1,0 +1,14 @@
+Nadia's Perfume Cart V20
+Implemented: strict bilingual UX layer, premium responsive sections, Perfume Finder preference capture,
+Discovery/Gift flows, improved checkout transparency, international shipping disclosure, FAQ,
+social links, newsletter-interest capture, image lazy loading, SEO metadata, sitemap, robots, manifest,
+search/wishlist/cart preserved, and product-data safeguards.
+
+Requires business credentials/data before becoming live commerce:
+- Payment gateway
+- Backend/database
+- Real order processing
+- Inventory
+- Confirmed prices, sizes, fragrance notes, stock
+- Confirmed WhatsApp business number
+- Confirmed shipping carrier/rates

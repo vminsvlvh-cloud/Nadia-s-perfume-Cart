@@ -1,0 +1,6 @@
+Nadia's Perfume Cart V24
+Supabase frontend connection configured.
+Project URL and publishable key are included intentionally for browser use.
+RLS policies protect announcement writes; admin access is determined by app_metadata.role.
+Never add a Supabase secret/service_role key to this repository.
+Next: deploy these files to the GitHub repository used by Railway, then open /admin.html.

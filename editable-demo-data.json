@@ -1,0 +1,68 @@
+{
+  "notice": {
+    "ar": "بيانات تجريبية قابلة للتعديل — ليست أسعاراً أو مواصفات نهائية.",
+    "en": "Editable demo data — not final prices or product specifications."
+  },
+  "products": [
+    {
+      "slug": "fares",
+      "ar": "فارس",
+      "en": "Fares",
+      "price": "850",
+      "size": "50 ml",
+      "family_ar": "خشبي — مثال",
+      "family_en": "Woody — example",
+      "stock_ar": "متوفر — مثال",
+      "stock_en": "In stock — example"
+    },
+    {
+      "slug": "empire",
+      "ar": "إمباير",
+      "en": "Empire",
+      "price": "950",
+      "size": "50 ml",
+      "family_ar": "دافئ — مثال",
+      "family_en": "Warm — example",
+      "stock_ar": "متوفر — مثال",
+      "stock_en": "In stock — example"
+    },
+    {
+      "slug": "legacy",
+      "ar": "ليغاسي",
+      "en": "Legacy",
+      "price": "900",
+      "size": "50 ml",
+      "family_ar": "منعش — مثال",
+      "family_en": "Fresh — example",
+      "stock_ar": "كمية محدودة — مثال",
+      "stock_en": "Low stock — example"
+    }
+  ],
+  "shipping": [
+    {
+      "area_ar": "القاهرة والجيزة",
+      "area_en": "Cairo & Giza",
+      "fee": "70",
+      "eta_ar": "1–3 أيام — مثال",
+      "eta_en": "1–3 days — example"
+    },
+    {
+      "area_ar": "باقي المحافظات",
+      "area_en": "Other governorates",
+      "fee": "100",
+      "eta_ar": "2–5 أيام — مثال",
+      "eta_en": "2–5 days — example"
+    }
+  ],
+  "gift_wrap": {
+    "price": "60",
+    "ar": "تغليف هدية — مثال",
+    "en": "Gift wrapping — example"
+  },
+  "coupon": {
+    "code": "MEMORY10",
+    "discount": "10%",
+    "label_ar": "كود تجريبي",
+    "label_en": "Demo coupon"
+  }
+}

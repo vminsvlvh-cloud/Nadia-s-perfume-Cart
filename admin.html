@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nadia’s Admin</title>
+<style>
+:root{--g:#0b1813;--g2:#173126;--gold:#c49a62;--paper:#fffaf4}
+*{box-sizing:border-box}body{margin:0;background:var(--g);color:#f7eee2;font-family:Arial,sans-serif}
+.wrap{max-width:920px;margin:auto;padding:42px 20px}.brand{text-align:center;margin-bottom:30px}.brand h1{font:42px Georgia,serif;color:var(--gold);margin:0 0 8px}
+.card{background:var(--paper);color:#261d17;padding:24px;border:1px solid #c49a6255;margin-bottom:18px}
+label{display:block;margin:12px 0 5px;font-weight:700}input,textarea{width:100%;padding:12px;border:1px solid #cbb89f;background:white}textarea{min-height:105px}
+button,a.btn{display:inline-block;border:1px solid var(--gold);background:var(--g2);color:white;padding:11px 17px;margin:10px 5px 0 0;text-decoration:none;cursor:pointer}
+.status{padding:10px 0;font-weight:700}.hidden{display:none}.top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+small{opacity:.7;line-height:1.6}.warn{background:#f4e6d2;padding:12px;border:1px solid #d2b080}
+</style></head>
+<body><div class="wrap">
+<div class="brand"><h1>Nadia’s Perfume Cart</h1><div>لوحة الإدارة | Admin Dashboard</div></div>
+<div id="setup" class="card hidden"><h2>إعداد الربط</h2><div class="warn">أضف Supabase Project URL وPublishable/Anon Key داخل ملف <b>supabase-config.js</b> ثم أعد نشر الموقع. لا تضع Service Role Key في الموقع.</div></div>
+<div id="login" class="card"><h2>دخول الإدارة</h2><label>البريد الإلكتروني</label><input id="email" type="email"><label>كلمة المرور</label><input id="password" type="password"><button onclick="login()">دخول</button><div id="loginStatus" class="status"></div></div>
+<div id="dashboard" class="hidden">
+ <div class="card top"><div><strong id="who"></strong><br><small>يمكنك إدارة الإعلان المنشور لكل الزوار.</small></div><div><a class="btn" href="index.html">عرض الموقع</a><button onclick="logout()">خروج</button></div></div>
+ <div class="card"><h2>الجديد الحصري</h2>
+  <label>النص العربي</label><textarea id="text_ar"></textarea>
+  <label>English text</label><textarea id="text_en" dir="ltr"></textarea>
+  <label>الرابط</label><input id="link" value="shop.html" dir="ltr">
+  <label><input id="active" type="checkbox" style="width:auto"> إظهار الإعلان</label>
+  <button onclick="saveAnnouncement()">حفظ ونشر</button><div id="saveStatus" class="status"></div>
+ </div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script>
+<script>
+let sb=null,currentId=null;
+const cfg=window.NADIA_SUPABASE||{};
+if(cfg.url&&cfg.anonKey){sb=supabase.createClient(cfg.url,cfg.anonKey)}else{document.getElementById('setup').classList.remove('hidden')}
+async function login(){
+ if(!sb)return document.getElementById('loginStatus').textContent='أكمل إعداد Supabase أولاً.';
+ const {data,error}=await sb.auth.signInWithPassword({email:email.value,password:password.value});
+ if(error)return loginStatus.textContent=error.message;
+ await showDashboard(data.user);
+}
+async function showDashboard(user){
+ const role=user?.app_metadata?.role;
+ if(role!=='admin'){await sb.auth.signOut();return loginStatus.textContent='هذا الحساب ليس Admin.'}
+ login.classList.add('hidden');dashboard.classList.remove('hidden');who.textContent=user.email;await loadAnnouncement();
+}
+async function loadAnnouncement(){
+ const {data,error}=await sb.from('announcements').select('*').order('updated_at',{ascending:false}).limit(1).maybeSingle();
+ if(error)return saveStatus.textContent=error.message;
+ if(data){currentId=data.id;text_ar.value=data.text_ar;text_en.value=data.text_en;link.value=data.link||'shop.html';active.checked=data.is_active}
+}
+async function saveAnnouncement(){
+ const row={text_ar:text_ar.value.trim(),text_en:text_en.value.trim(),link:link.value.trim()||'shop.html',is_active:active.checked,updated_at:new Date().toISOString()};
+ if(!row.text_ar||!row.text_en)return saveStatus.textContent='أدخل النص العربي والإنجليزي.';
+ const q=currentId?sb.from('announcements').update(row).eq('id',currentId):sb.from('announcements').insert(row).select().single();
+ const {data,error}=await q;if(error)return saveStatus.textContent=error.message;
+ if(data?.id)currentId=data.id;saveStatus.textContent='تم الحفظ والنشر.';
+}
+async function logout(){if(sb)await sb.auth.signOut();location.reload()}
+(async()=>{if(!sb)return;const {data}=await sb.auth.getSession();if(data.session)await showDashboard(data.session.user)})();
+</script></body></html>

@@ -1,0 +1,16 @@
+EDITABLE EXAMPLES — Nadia's Perfume Cart V21
+
+These are DEMO values only and are visibly labelled as examples.
+Edit `editable-demo-data.json` for the reference dataset.
+
+Current examples:
+- Fares: EGP 850 / 50 ml
+- Empire: EGP 950 / 50 ml
+- Legacy: EGP 900 / 50 ml
+- Cairo & Giza shipping: EGP 70
+- Other governorates: EGP 100
+- Gift wrapping: EGP 60
+- Demo coupon: MEMORY10 / 10%
+
+The Shop page also includes editable fields saved to localStorage for instant preview.
+Replace all demo values with confirmed business data before live sales.
