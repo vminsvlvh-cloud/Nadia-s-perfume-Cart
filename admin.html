@@ -34,9 +34,16 @@ const cfg=window.NADIA_SUPABASE||{};
 if(cfg.url&&cfg.anonKey){sb=supabase.createClient(cfg.url,cfg.anonKey)}else{document.getElementById('setup').classList.remove('hidden')}
 async function login(){
  if(!sb)return document.getElementById('loginStatus').textContent='أكمل إعداد Supabase أولاً.';
- const {data,error}=await sb.auth.signInWithPassword({email:email.value,password:password.value});
- if(error)return loginStatus.textContent=error.message;
- await showDashboard(data.user);
+ loginStatus.textContent='جاري الاتصال بـ Supabase...';
+ try{
+   const {data,error}=await sb.auth.signInWithPassword({email:email.value,password:password.value});
+   if(error)return loginStatus.textContent='Supabase: '+error.message;
+   loginStatus.textContent='';
+   await showDashboard(data.user);
+ }catch(err){
+   console.error('Supabase connection error',err);
+   loginStatus.textContent='تعذر الاتصال بـ Supabase. تحقق من Project URL وحالة المشروع واتصال الشبكة.';
+ }
 }
 async function showDashboard(user){
  const role=user?.app_metadata?.role;

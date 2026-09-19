@@ -1,0 +1,5 @@
+Nadia's Perfume Cart V25
+- Fixed product image paths to use root-level .webp files.
+- Fixed brand/logo paths to use root-level uploaded files.
+- Added clearer Supabase connection error handling in admin.html.
+- Supabase browser config remains publishable-key only; no secret keys are included.
